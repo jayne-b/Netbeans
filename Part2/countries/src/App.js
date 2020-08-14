@@ -1,39 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-
-const CountrySearch = ({ value, onChange }) => {
-  return (
-    <div>
-      <p>
-        find countries:
-      <input
-          value={value}
-          onChange={onChange}
-        />
-      </p>
-    </div>
-  )
-}
-
-const Country = ({ result }) => {
-  return (
-    <div>
-      <h1>{result.name}</h1>
-      <p>Capital: {result.capital}</p>
-      <p>Population: {result.population}</p>
-      <h2>Languages</h2>
-      <ul>{result.languages.map(lang => <li key={lang.name}>{lang.name}</li>)}</ul>
-      <p><img src={result.flag} height={100} alt='flag' /></p>
-    </div>
-  )
-}
-
-const CountryList = ({ result}) => {
-  return (
-    <div>{result.map(country => <div key={country.name}>{country.name}</div>)}</div>
-  )
-}
-
+import Country from './Components/Country'
+import CountrySearch from './Components/CountrySearch'
+import CountryList from './Components/CountryList'
 
 const App = () => {
   const [searched, setSearched] = useState('')
@@ -59,6 +28,10 @@ const App = () => {
     return country.name.toLowerCase().includes(searched.toLowerCase());
   });
 
+  const show = (country) => {
+    setSearched(country)
+  }
+
   if (result.length === 1) {
     return (
       <div>
@@ -70,7 +43,7 @@ const App = () => {
     return (
       <div>
         <CountrySearch value={searched} onChange={handleNameChange} />
-        <CountryList result={result} />
+        <CountryList result={result} show={show} />
       </div>
     )
   } else if (searched === '') {
