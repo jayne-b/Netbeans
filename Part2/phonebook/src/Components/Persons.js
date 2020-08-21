@@ -1,8 +1,8 @@
 import React from 'react';
 
-const Persons = ({ people }) => {
+const Persons = ({ people, deletePerson }) => {
     return (
-        <div>{people.map(person => <div key={person.name}>{person.name} {person.number}</div>)}</div>
+        <div>{people.map(person => <div key={person.name}>{person.name} {person.number}<button onClick={() => deletePerson(person)}>delete</button></div>)}</div>
     )
 }
 
